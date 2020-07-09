@@ -4,14 +4,18 @@ import { CommonModule } from '@angular/common';
 import { AclRoutingModule } from './acl-routing.module';
 import { ListComponent } from './list/list.component';
 import { DetailComponent } from './detail/detail.component';
-import { NbIconModule} from "@nebular/theme";
+import { NbIconModule, NbLayoutModule } from "@nebular/theme";
+import { NbSelectModule, NbSearchModule } from "@nebular/theme";
 
 @NgModule({
   declarations: [ListComponent, DetailComponent],
   imports: [
     CommonModule,
     AclRoutingModule,
-    NbIconModule
+    NbIconModule,
+    NbSelectModule,
+    NbSearchModule,
+    NbLayoutModule
   ]
 })
 export class AclModule { }

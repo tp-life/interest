@@ -1,4 +1,4 @@
-<p>this is  acl list </p>
+<p>this is acl list </p>
 
 <a [routerLink]="['./detail', 18]">test detail</a>
 
@@ -7,4 +7,14 @@
 
 <router-outlet></router-outlet>
 
-<button (click)="nav()">凉鞋</button>
+<nb-select #sle>
+  <nb-select-label >
+    TEST:{{selectItem}}
+  </nb-select-label>
+  <nb-option (click)="nav()" value="--haha" >
+    dfs
+  </nb-option>
+  <nb-option-list>
+
+  </nb-option-list>
+</nb-select>

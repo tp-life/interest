@@ -1,16 +1,21 @@
-<nb-layout>
+<nb-layout center>
 
   <nb-layout-header fixed>
-  <!-- Insert header here -->
+    <!-- Insert header here -->
+
+    <div class="flew flew-between">
+      <div>loading</div>
+      <div><nb-search type="rotate-layout"></nb-search></div>
+    </div>
+
   </nb-layout-header>
 
   <nb-layout-column>
     <router-outlet></router-outlet>
-
   </nb-layout-column>
 
   <nb-layout-footer fixed>
-  <!-- Insert footer here -->
+    <!-- Insert footer here -->
   </nb-layout-footer>
 
 </nb-layout>

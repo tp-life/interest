@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewRef} from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
@@ -7,6 +7,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
+  @ViewChild('sle') sel
+  selectItem: string
 
   constructor(private router: Router) {
   }
@@ -15,6 +17,11 @@ export class ListComponent implements OnInit {
   }
 
   nav() {
-    this.router.navigate([{outlets: {popup: 'compose'}}])
+    console.log(this.sel)
+
+  }
+  test() {
+    this.selectItem = "SD"
+    console.log("###")
   }
 }
