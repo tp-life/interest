@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'themes';
+
+@import '~@nebular/theme/styles/globals';
+@import '~@nebular/auth/styles/globals';
+
+@include nb-install() {
+  @include nb-theme-global();
+  @include nb-auth-global();
+};
+
+.flew {
+  display: flex;
+  width: 100%;
+}
+
+.flew-between {
+  justify-content: space-between;
+  align-items: center;
+}
