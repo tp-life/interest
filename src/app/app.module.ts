@@ -7,12 +7,13 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {registerLocaleData} from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import {AclModule} from "./acl/acl.module";
+import {ArticleModule} from "./article/article.module";
 import {NbLayoutModule, NbThemeModule} from '@nebular/theme';
 import {NbEvaIconsModule} from '@nebular/eva-icons';
 import {NbAuthModule, NbPasswordAuthStrategy} from '@nebular/auth';
 import {AuthModule} from "./auth/auth.module";
 import { NbSearchModule } from "@nebular/theme";
+import { EditorDirective } from '../directive/editor.directive';
 
 registerLocaleData(zh);
 
@@ -50,7 +51,7 @@ registerLocaleData(zh);
       ],
       forms: {},
     }),
-    AclModule,
+    ArticleModule,
     AuthModule,
     AppRoutingModule,
   ],

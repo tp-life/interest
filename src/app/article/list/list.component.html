@@ -1,0 +1,21 @@
+
+  <div class="pure-g">
+    <nb-card style="width: 200px;" class="pure-4-24">
+      <nb-card-body>
+        <nb-list>
+          <nb-list-item>朝花夕拾</nb-list-item>
+          <nb-list-item>野草</nb-list-item>
+          <nb-list-item>三味书屋</nb-list-item>
+        </nb-list>
+      </nb-card-body>
+    </nb-card>
+    <nb-card style="width: 80%;" class="pure-18-24">
+      <nb-card-body>
+        <div id="detailmarkdown"
+             appEditor
+             (onEditorChange)="syncModel($event)">
+          <textarea style="display: none;" ></textarea>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
