@@ -1,21 +1,24 @@
 
-  <div class="pure-g">
-    <nb-card style="width: 200px;" class="pure-4-24">
-      <nb-card-body>
-        <nb-list>
-          <nb-list-item>朝花夕拾</nb-list-item>
-          <nb-list-item>野草</nb-list-item>
-          <nb-list-item>三味书屋</nb-list-item>
-        </nb-list>
-      </nb-card-body>
-    </nb-card>
-    <nb-card style="width: 80%;" class="pure-18-24">
-      <nb-card-body>
-        <div id="detailmarkdown"
-             appEditor
-             (onEditorChange)="syncModel($event)">
-          <textarea style="display: none;" ></textarea>
-        </div>
-      </nb-card-body>
-    </nb-card>
+  <div class="iest-g">
+    <div class="iest-3-24 iest-offset-1-24">
+      
+    </div>
+    <div class="iest-19-24 iest-offset-1-24">
+      <ejs-dashboardlayout #editLayout [columns]="12" [cellSpacing]="cellSpacing" [allowDragging]="false" [cellAspectRatio]="aspectRatio">
+        <e-panels>
+          <e-panel [sizeX]="12" [sizeY]="6" [row]="0" [col]="0">
+            <ng-template #content>
+              <div id="detailmarkdown"
+                appEditor
+                (onEditorChange)="syncModel($event)">
+              <textarea style="display: none;" ></textarea>
+              </div>
+            </ng-template>
+          </e-panel>
+    
+        </e-panels>
+      </ejs-dashboardlayout>
+    </div>
   </div>
+
+

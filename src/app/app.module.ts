@@ -13,7 +13,8 @@ import {NbEvaIconsModule} from '@nebular/eva-icons';
 import {NbAuthModule, NbPasswordAuthStrategy} from '@nebular/auth';
 import {AuthModule} from "./auth/auth.module";
 import { NbSearchModule } from "@nebular/theme";
-import { EditorDirective } from '../directive/editor.directive';
+import { interceptorProviders } from 'src/interceptor'
+
 
 registerLocaleData(zh);
 
@@ -34,7 +35,7 @@ registerLocaleData(zh);
       strategies: [
         NbPasswordAuthStrategy.setup({
           name: 'email',
-          baseEndpoint: 'http://127.0.0.1:8080',
+          baseEndpoint: 'http://word.com',
           login: {
             endpoint: '/login',
             method: 'post',
@@ -51,11 +52,13 @@ registerLocaleData(zh);
       ],
       forms: {},
     }),
+    // syncfusion
+    // routing
     ArticleModule,
     AuthModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [interceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule {
