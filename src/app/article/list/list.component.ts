@@ -1,13 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {EditorConfig} from "../../../util/editor/editorConfig";
+import { NbAuthService, NbAuthToken } from '@nebular/auth'
 
 declare var editormd: any;
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
+  providers:[NbAuthService]
 })
 export class ListComponent implements OnInit {
 
@@ -22,7 +24,7 @@ export class ListComponent implements OnInit {
   // @ViewChild(EditorDirective, {static: false})
   // private editorMdDirective: EditorDirective;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private auth: NbAuthService) {
   }
 
   ngOnInit(): void {
@@ -30,5 +32,10 @@ export class ListComponent implements OnInit {
 
   syncModel(s: string): void {
     console.log(s, "SDFS")
+  }
+
+  ngAfterViewInit() {
+    this.auth.isAuthenticated().subscribe(x => console.log(x))
+    this.auth.getToken().subscribe((x: NbAuthToken) => console.log(x.getValue()))
   }
 }
