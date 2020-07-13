@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from "rxjs";
   providedIn: 'root'
 })
 export class AppService {
+  private static self: AppService
   private static  loginInfo:BehaviorSubject<LoginInterface>
 
   private constructor() {
@@ -13,10 +14,13 @@ export class AppService {
   }
 
   static get login(): Observable<LoginInterface> {
-    return this.loginInfo.pipe()
+    if (!this.self) {
+      AppService.self = new AppService()
+    }
+    return AppService.loginInfo.pipe()
   }
 
   static nextLogin(data: LoginInterface) {
-    this.loginInfo.next(data)
+    AppService.loginInfo.next(data)
   }
 }
