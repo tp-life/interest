@@ -1,7 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {EditorConfig} from "../../../util/editor/editorConfig";
+import {EditorConfig} from "../../../config/editorConfig";
 import { NbAuthService, NbAuthToken } from '@nebular/auth'
+import { AuthService } from "../../../service/auth.service";
+import { HttpClient } from "@angular/common/http";
+import {tap} from "rxjs/operators";
+import { AppService } from "../../../service/app.service";
 
 declare var editormd: any;
 
@@ -9,7 +13,7 @@ declare var editormd: any;
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  providers:[NbAuthService]
+  providers:[NbAuthService,  HttpClient]
 })
 export class ListComponent implements OnInit {
 
@@ -24,7 +28,7 @@ export class ListComponent implements OnInit {
   // @ViewChild(EditorDirective, {static: false})
   // private editorMdDirective: EditorDirective;
 
-  constructor(private router: Router, private auth: NbAuthService) {
+  constructor(private router: Router, private auth: AuthService, private http: HttpClient) {
   }
 
   ngOnInit(): void {
@@ -35,7 +39,13 @@ export class ListComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.auth.isAuthenticated().subscribe(x => console.log(x))
-    this.auth.getToken().subscribe((x: NbAuthToken) => console.log(x.getValue()))
+    const token = this.auth.token
+    const valid = this.auth.authValid()
+    let d$ =this.http.get("/article?a=34").pipe(tap(x => { console.log(x, 'sd') }))
+    d$.subscribe()
+    AppService.login.subscribe(x => {
+      console.log(x, 111)
+
+    })
   }
 }

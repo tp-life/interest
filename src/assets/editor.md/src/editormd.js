@@ -146,7 +146,7 @@
         tocContainer         : "",
         tocStartLevel        : 1,              // Said from H1 to create ToC
         htmlDecode           : false,          // Open the HTML tag identification
-        pageBreak            : true,           // Enable parse page break [========]
+        pageBreak            : true,           // Enable parse pages break [========]
         atLink               : true,           // for @link
         emailLink            : true,           // for email address auto link
         taskList             : false,          // Enable Github Flavored Markdown task lists
@@ -3579,7 +3579,7 @@
         markedRenderer.pageBreak = function(text) {
             if (pageBreakReg.test(text) && settings.pageBreak)
             {
-                text = "<hr style=\"page-break-after:always;\" class=\"page-break editormd-page-break\" />";
+                text = "<hr style=\"pages-break-after:always;\" class=\"pages-break editormd-pages-break\" />";
             }
 
             return text;

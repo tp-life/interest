@@ -1,6 +1,6 @@
 import {AfterViewInit, Attribute, Directive, EventEmitter, Input, Output} from '@angular/core';
 
-import {EditorConfig} from "../util/editor/editorConfig";
+import {EditorConfig} from "../config/editorConfig";
 
 declare var editormd: any;
 import * as $ from 'jquery'

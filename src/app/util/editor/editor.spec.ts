@@ -1,4 +1,4 @@
-import { EditorConfig } from './editorConfig';
+import { EditorConfig } from '../../config/editorConfig';
 
 describe('Editor', () => {
   it('should create an instance', () => {

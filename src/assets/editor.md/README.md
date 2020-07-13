@@ -195,7 +195,7 @@ EditorConfig.md options and default values:
     tocContainer         : "",             // Custom Table Of Contents Container Selector
     tocStartLevel        : 1,              // Said from H1 to create ToC
     htmlDecode           : false,          // Open the HTML tag identification 
-    pageBreak            : true,           // Enable parse page break [========]
+    pageBreak            : true,           // Enable parse pages break [========]
     atLink               : true,           // for @link
     emailLink            : true,           // for email address auto link
     taskList             : false,          // Enable Github Flavored Markdown task lists

@@ -114,7 +114,7 @@ config = {
 	// by default, modify document.title when suite is done
 	altertitle: true,
 
-	// by default, scroll to top of the page when suite is done
+	// by default, scroll to top of the pages when suite is done
 	scrolltop: true,
 
 	// when enabled, all tests must call expect()
@@ -280,7 +280,7 @@ extend( QUnit, {
 					"QUnit.config.autostart was true" );
 			} else if ( !config.pageLoaded ) {
 
-				// The page isn't completely loaded yet, so bail out and let `QUnit.load` handle it
+				// The pages isn't completely loaded yet, so bail out and let `QUnit.load` handle it
 				config.autostart = true;
 				return;
 			}
@@ -2409,7 +2409,7 @@ function toolbarChanged() {
 			removeClass( id( "qunit-tests" ), "hidepass" );
 		}
 
-		// It is not necessary to refresh the whole page
+		// It is not necessary to refresh the whole pages
 		window.history.replaceState( null, "", updatedUrl );
 	} else {
 		window.location = updatedUrl;
