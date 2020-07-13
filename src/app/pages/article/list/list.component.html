@@ -1,24 +1,70 @@
-
+<!-- 
   <div class="iest-g">
     <div class="iest-3-24 iest-offset-1-24">
       
     </div>
     <div class="iest-19-24 iest-offset-1-24">
-      <ejs-dashboardlayout #editLayout [columns]="12" [cellSpacing]="cellSpacing" [allowDragging]="false" [cellAspectRatio]="aspectRatio">
-        <e-panels>
-          <e-panel [sizeX]="12" [sizeY]="6" [row]="0" [col]="0">
-            <ng-template #content>
-              <div id="detailmarkdown"
-                appEditor
-                (onEditorChange)="syncModel($event)">
-              <textarea style="display: none;" ></textarea>
-              </div>
-            </ng-template>
-          </e-panel>
-    
-        </e-panels>
-      </ejs-dashboardlayout>
+      
     </div>
+  </div> -->
+
+<div class="iest-g">
+  <div class="iest-24-24">
+    <ejs-dashboardlayout #editLayout [columns]="12" [cellSpacing]="cellSpacing" [allowDragging]="false"
+      [cellAspectRatio]="aspectRatio">
+      <e-panels>
+        <e-panel [sizeX]="2" [sizeY]="10" [row]="0" [col]="0" cssClass='red'>
+          <ng-template #header>
+            <div style="height: 80px;">
+            </div>
+          </ng-template>
+          <ng-template #content>
+            <div class="e-card" style="margin-bottom: 10px;">
+              <div class="e-card-header-title">Eiffel Tower</div>
+              <div class="e-card-content">
+                The Eiffel Tower is acknowledged as the universal symbol of Paris and France.
+              </div>
+              <div class="e-card-actions">
+                <button class="e-card-btn">
+                  <img src="http://image.zbrid.com/blog-2018-02-08-e6beddf5-%E5%8D%95%E9%80%9A%E9%81%93.png" style="height: 18px;width: 18px;" title="Bookmark">
+                </button>
+                <button class="e-card-btn">
+                  <img src="http://image.zbrid.com/blog-2018-02-08-e6beddf5-%E5%8D%95%E9%80%9A%E9%81%93.png" style="height: 18px;width: 18px;" title="Like">
+                </button>
+                <button class="e-card-btn">
+                  <img src="http://image.zbrid.com/blog-2018-02-08-e6beddf5-%E5%8D%95%E9%80%9A%E9%81%93.png" style="height: 18px;width: 18px;" title="Share">
+                </button>
+              </div>
+            </div>
+            <div class="e-card" >
+              <div class="e-card-header-title">Eiffel Tower</div>
+              <div class="e-card-content">
+                The Eiffel Tower is acknowledged as the universal symbol of Paris and France.
+              </div>
+              <div class="e-card-actions">
+                <button class="e-card-btn">
+                  <img src="http://image.zbrid.com/blog-2018-02-08-e6beddf5-%E5%8D%95%E9%80%9A%E9%81%93.png" style="height: 18px;width: 18px;" title="Bookmark">
+                </button>
+                <button class="e-card-btn">
+                  <img src="http://image.zbrid.com/blog-2018-02-08-e6beddf5-%E5%8D%95%E9%80%9A%E9%81%93.png" style="height: 18px;width: 18px;" title="Like">
+                </button>
+                <button class="e-card-btn">
+                  <img src="http://image.zbrid.com/blog-2018-02-08-e6beddf5-%E5%8D%95%E9%80%9A%E9%81%93.png" style="height: 18px;width: 18px;" title="Share">
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </e-panel>
+        <e-panel [sizeX]="10" [sizeY]="8" [row]="0" [col]="2">
+          <ng-template #content>
+            <div id="detailmarkdown" appEditor (onEditorChange)="syncModel($event)">
+              <textarea style="display: none;"></textarea>
+            </div>
+          </ng-template>
+        </e-panel>
+
+      </e-panels>
+    </ejs-dashboardlayout>
   </div>
 
-
+</div>

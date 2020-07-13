@@ -24,9 +24,7 @@ export class BaseInterceptor implements HttpInterceptor {
             } else if (event.body?.code != 0) {
               this.toast.danger(event.body?.message, '数据请求错误', {hasIcon: false, icon: ''})
             }
-            if (event.body?.code == 401) {
-              this.route.navigate(['/auth'])
-            }
+            event.body?.code == 401 &&  this.route.navigate(['/auth'])
           }
         },
         err => this.toast.danger(JSON.stringify(err), '客户端异常错误', {hasIcon: false, icon: ''})

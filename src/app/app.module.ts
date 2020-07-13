@@ -69,6 +69,4 @@ registerLocaleData(zh);
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-  public Info;
-}
+export class AppModule {}

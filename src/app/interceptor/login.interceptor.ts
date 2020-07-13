@@ -20,11 +20,7 @@ export class LoginInterceptor implements HttpInterceptor {
     }
     return next.handle(request).pipe(
       tap(
-        event => {
-          if (event instanceof HttpResponse) {
-            AppService.nextLogin(<LoginInterface>event.body)
-          }
-        }
+        event => event instanceof HttpResponse  && AppService.nextLogin(<LoginInterface>event.body)
       )
     );
   }

@@ -24,3 +24,12 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.e-dashboardlayout.e-control .e-panel .e-panel-header {
+  height: auto!important;
+  min-height: 28px;
+}
+
+.red{
+  background: #333333;
+}

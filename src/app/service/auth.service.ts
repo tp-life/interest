@@ -2,7 +2,9 @@ import {NbAuthService, NbAuthToken} from '@nebular/auth'
 import {tap} from "rxjs/operators";
 import { Injectable } from "@angular/core";
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+  })
 export class AuthService {
   private key: string
 
@@ -24,9 +26,7 @@ export class AuthService {
   authValid(): boolean {
     let v: boolean
     this.service.isAuthenticated().pipe(
-      tap((valid: boolean) => {
-        v = valid
-      })
+      tap(valid => v = valid)
     ).subscribe()
     return v
   }
