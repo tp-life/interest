@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {EditorConfig} from "../../../config/editorConfig";
-import { NbAuthService, NbAuthToken } from '@nebular/auth'
-import { AuthService } from "../../../service/auth.service";
-import { HttpClient } from "@angular/common/http";
-import {tap} from "rxjs/operators";
-import { AppService } from "../../../service/app.service";
+import {NbAuthService} from '@nebular/auth'
+import {AuthService} from "../../../service/auth.service";
+import {HttpClient} from "@angular/common/http";
+import {EditorDirective} from "../../../directive/editor.directive";
+import {NbToastrService} from "@nebular/theme";
 
 declare var editormd: any;
 
@@ -13,39 +13,58 @@ declare var editormd: any;
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  providers:[NbAuthService,  HttpClient]
+  providers: [NbAuthService, HttpClient]
 })
 export class ListComponent implements OnInit {
 
-  conf = new EditorConfig({height: 'calc(100% - 100px)'});
-  public cellSpacing:number[] =[20,20]
-  public aspectRatio : any = 100 / 56;
+  conf = new EditorConfig({
+    height: '100%',
+    toolbarIcons: ["undo", "redo", "bold", "hr","fullscreen","image","||","save", "watch","preview"],
+    lang: {
+      toolbar: {
+        save: '保存',
+        undo: "撤销"
+      }
+    },
+    toolbarIconsClass: {
+      save: "fa-save"
+    },
+    toolbarHandlers: {
+      save: this.save
+    }
+  });
+  public cellSpacing: number[] = [20, 10]
+  public aspectRatio: any = 100 / 56;
 
-  public dataSource: any = [
-    {name: 'IBM', image:'https://ej2.syncfusion.com/demos/src/listview/images/1.png'},
-    {name: 'Hello', image:'https://ej2.syncfusion.com/demos/src/listview/images/1.png'},
-  ]
-  // @ViewChild(EditorDirective, {static: false})
-  // private editorMdDirective: EditorDirective;
+  @ViewChild(EditorDirective, {static: false})
+  private editorMdDirective: EditorDirective;
 
-  constructor(private router: Router, private auth: AuthService, private http: HttpClient) {
+  public title: string
+  public content: string
+
+  constructor(private router: Router, private auth: AuthService, private http: HttpClient, private toast: NbToastrService) {
   }
 
   ngOnInit(): void {
   }
 
   syncModel(s: string): void {
-    console.log(s, "SDFS")
+    this.content = s
   }
 
-  ngAfterViewInit() {
-    const token = this.auth.token
-    const valid = this.auth.authValid()
-    let d$ =this.http.get("/article?a=34").pipe(tap(x => { console.log(x, 'sd') }))
-    d$.subscribe()
-    AppService.login.subscribe(x => {
-      console.log(x, 111)
+  clearEditor() {
+    this.editorMdDirective.clearContent()
+  }
 
-    })
+  save() {
+    if (!this.content || !this.title) {
+      this.toast.warning("请输入标题或者内容")
+      return
+    }
+
+  }
+
+  public focusIn(target: HTMLElement): void {
+    target.parentElement.classList.add('e-input-focus');
   }
 }

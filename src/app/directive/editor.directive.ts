@@ -31,4 +31,8 @@ export class EditorDirective implements AfterViewInit {
   getHtml():string {
     return $('.editormd-preview').html();
   }
+
+  clearContent():void {
+    this.editor.clear()
+  }
 }

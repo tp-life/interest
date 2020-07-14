@@ -1,0 +1,22 @@
+.btn-fixed {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+}
+.article-title {
+  height: 100%;
+  padding: 10px;
+//   background: #A0D468;
+}
+
+.e-float-input, .e-input-group {
+  border: none!important;
+  height: 90%!important;
+  font-size: 40px;
+
+}
+
+.e-input-focus {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}

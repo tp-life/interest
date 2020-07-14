@@ -1,6 +1,6 @@
 export class EditorConfig {
   public width = '100%';
-  public height = '90%';
+  public height = '100%';
   //下载的editor.md的地址
   public path = 'assets/editor.md/lib/';
   public codeFold: true;
@@ -22,7 +22,9 @@ export class EditorConfig {
   public imageFormats = ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp'];
   public imageUploadURL = '';
   public placeholder = '开始你的表演'
+  public toolbarAutoFixed = false
   constructor(option: any = null) {
     Object.assign(this, option);
   }
 }
+2
