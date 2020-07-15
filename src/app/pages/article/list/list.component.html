@@ -5,16 +5,8 @@
       <e-panels>
         <e-panel [sizeX]="2" [sizeY]="11" [row]="0" [col]="0" cssClass='red'>
           <ng-template #content>
-            <div class="e-card" style="margin-bottom: 10px;">
-              <div class="e-card-header-title">Eiffel Tower</div>
-              <div class="e-card-content">
-                The Eiffel Tower is acknowledged as the universal symbol of Paris and France.
-              </div>
-              <div class="e-card-actions">
-              </div>
-            </div>
-            <div class="e-card" >
-              <div class="e-card-header-title">Eiffel Tower</div>
+            <div class="e-card" style="margin-bottom: 20px;" *ngFor="let item of article?.data ">
+              <div class="e-card-header-title">{{item.title}}</div>
               <div class="e-card-content">
                 The Eiffel Tower is acknowledged as the universal symbol of Paris and France.
               </div>
@@ -37,7 +29,7 @@
         </e-panel>
         <e-panel [sizeX]="10" [sizeY]="10" [row]="1" [col]="2">
           <ng-template #content>
-            <div id="detailmarkdown" appEditor (onEditorChange)="syncModel($event)" [editConfig]="conf">
+            <div id="detailmarkdown" appEditor  [editConfig]="conf">
               <textarea style="display: none;"></textarea>
             </div>
           </ng-template>

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url: 'http://word.com'
+  url: 'http://word.com/'
 };
 
 /*

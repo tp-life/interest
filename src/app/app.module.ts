@@ -10,12 +10,13 @@ import zh from '@angular/common/locales/zh';
 import {ArticleModule} from "./pages/article/article.module";
 import {NbLayoutModule, NbSearchModule, NbThemeModule, NbToastrModule} from '@nebular/theme';
 import {NbEvaIconsModule} from '@nebular/eva-icons';
-import {NbAuthModule, NbPasswordAuthStrategy} from '@nebular/auth';
+import {NbAuthModule, NbPasswordAuthStrategy, NbTokenStorage, NbTokenLocalStorage} from '@nebular/auth';
 import {AuthModule} from "./pages/auth/auth.module";
 import {interceptorProviders} from 'src/app/interceptor'
 import {AuthService} from "./service/auth.service";
 import {environment} from "../environments/environment";
 import {ApiUrl} from "./config/app";
+
 
 registerLocaleData(zh);
 
@@ -65,7 +66,8 @@ registerLocaleData(zh);
   ],
   providers: [
     AuthService,
-    interceptorProviders
+    interceptorProviders,
+    { provide: NbTokenStorage, useClass: NbTokenLocalStorage },
   ],
   bootstrap: [AppComponent]
 })

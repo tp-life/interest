@@ -13,7 +13,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private  auth: AuthService,
     private route: Router,
-    private toast: NbToastrService,
+    private toast: NbToastrService
   ) {
   }
 
@@ -28,8 +28,9 @@ export class AuthInterceptor implements HttpInterceptor {
       })
       return throwError("该模块需登陆后使用")
     }
-
-    const authReq = request.clone({setHeaders: {JWT: this.auth.token}, url: environment.url+uri})
+    const base = environment.url[environment.url.length-1] == '/'? environment.url.substr(0,environment.url.length - 1):environment.url
+    const url = uri[0] == '/' ?uri:  '/' + uri
+    const authReq = request.clone({setHeaders: {jwt: this.auth.token}, url: base + url})
     return next.handle(authReq)
   }
 }

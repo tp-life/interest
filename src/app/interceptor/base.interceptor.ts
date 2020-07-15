@@ -1,16 +1,26 @@
 import {Injectable} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse
+} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map, tap} from "rxjs/operators";
 import {NbToastrService} from "@nebular/theme";
 import {Router} from "@angular/router";
+import { NbTokenStorage} from "@nebular/auth";
+
 
 @Injectable()
 export class BaseInterceptor implements HttpInterceptor {
 
   constructor(
     private toast: NbToastrService,
-    private route: Router
+    private route: Router,
+    private nbService: NbTokenStorage
   ) {
   }
 
@@ -27,7 +37,13 @@ export class BaseInterceptor implements HttpInterceptor {
             event.body?.code == 401 &&  this.route.navigate(['/auth'])
           }
         },
-        err => this.toast.danger(JSON.stringify(err), '客户端异常错误', {hasIcon: false, icon: ''})
+        event => {
+          event instanceof HttpErrorResponse && this.toast.danger(event.error?.message, '数据请求错误' )
+           if (event.status == 401) {
+             this.nbService.clear()
+             this.route.navigate(['/auth'])
+           }
+        }
       ),
       map((event, index: number) => {
         if (event instanceof HttpResponse) {
