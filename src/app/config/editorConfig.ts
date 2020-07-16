@@ -11,7 +11,7 @@ export class EditorConfig {
   public tex = true;
   public readOnly = false;
   public tocm = true;
-  public watch = false;
+  public watch = true;
   public previewCodeHighlight = true;
   public saveHTMLToTextarea = true;
   public markdown = '';

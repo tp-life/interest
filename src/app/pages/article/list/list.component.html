@@ -5,22 +5,55 @@
       <e-panels>
         <e-panel [sizeX]="2" [sizeY]="11" [row]="0" [col]="0" cssClass='red'>
           <ng-template #content>
-            <div class="e-card" style="margin-bottom: 20px;" *ngFor="let item of article?.data ">
-              <div class="e-card-header-title">{{item.title}}</div>
-              <div class="e-card-content">
-                The Eiffel Tower is acknowledged as the universal symbol of Paris and France.
-              </div>
-              <div class="e-card-actions">
+            <div class="content-list">
+              <div class="article-card e-card" *ngFor="let item of article?.data ">
+                <div class="e-card-header-title" (click)="loadArticle(item.id)">{{item.title }}</div>
+                <div class="e-card-content" (click)="loadArticle(item.id)">
+                  {{item.content | regText |slice:0:100}}
+                </div>
+                <div class="e-card-actions">
+                  <div class="projects" *ngIf="item.projects.length > 0">
+                    <ejs-chiplist enableDelete="true" (delete)="delProject($event)">
+                      <e-chips>
+                        <e-chip [text]="project" *ngFor="let project of item.projects" [value]="project" ]></e-chip>
+                      </e-chips>
+                    </ejs-chiplist>
+                  </div>
+                  <div class="actions">
+                    <div >
+                      <span class="act" nbTooltip="设置" nbTooltipStatus="basic" nbTooltipPlacement="bottom">
+                        <nb-icon icon="settings" status="basic"></nb-icon>
+                      </span>
+                    </div>
+                    <div class="action-right">
+                      <span class="act" nbTooltip="喜欢" nbTooltipStatus="primary" nbTooltipPlacement="bottom">
+                        <nb-icon icon="heart" status="success"></nb-icon>
+                        <span>{{item.likes}}</span>
+                      </span>
+                      <span class="act" nbTooltip="收藏" nbTooltipStatus="primary" nbTooltipPlacement="bottom">
+                        <nb-icon icon="star" status="danger"></nb-icon>
+                        <span>{{item.fav}}</span>
+                      </span>
+                      <span class="act" nbTooltip="评论" nbTooltipStatus="primary" nbTooltipPlacement="bottom">
+                        <nb-icon icon="message-square" status="info"></nb-icon>
+                        <span>{{item.comment}}</span>
+                      </span>
+                    </div>
+
+                  </div>
+
+                </div>
               </div>
             </div>
-            <button ejs-button cssClass="e-round btn-fixed" iconCss="e-icons e-plus-icon" [isPrimary]="true" (click)="clearEditor()" ></button>
+            <button ejs-button cssClass="e-round btn-fixed" iconCss="e-icons e-plus-icon" [isPrimary]="true"
+              (click)="clearEditor()"></button>
           </ng-template>
         </e-panel>
-        <e-panel [sizeX]="10" [sizeY]="1"  [row]="0" [col]="2"  >
+        <e-panel [sizeX]="10" [sizeY]="1" [row]="0" [col]="2">
           <ng-template #content>
             <div class="article-title">
               <div class="e-float-input e-input-group">
-                <input type="text" name="title" (focus)="focusIn($event.target)"  [(ngModel)]="title"  />
+                <input type="text" name="title" (focus)="focusIn($event.target)" [(ngModel)]="title" />
                 <label class="e-float-text">标题</label>
               </div>
             </div>
@@ -29,7 +62,7 @@
         </e-panel>
         <e-panel [sizeX]="10" [sizeY]="10" [row]="1" [col]="2">
           <ng-template #content>
-            <div id="detailmarkdown" appEditor  [editConfig]="conf">
+            <div id="detailmarkdown" appEditor [editConfig]="conf">
               <textarea style="display: none;"></textarea>
             </div>
           </ng-template>

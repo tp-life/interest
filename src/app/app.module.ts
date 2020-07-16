@@ -22,7 +22,7 @@ registerLocaleData(zh);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +67,7 @@ registerLocaleData(zh);
   providers: [
     AuthService,
     interceptorProviders,
-    { provide: NbTokenStorage, useClass: NbTokenLocalStorage },
+    {provide: NbTokenStorage, useClass: NbTokenLocalStorage},
   ],
   bootstrap: [AppComponent]
 })

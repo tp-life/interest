@@ -3,6 +3,14 @@
   bottom: 1.5rem;
   right: 1.5rem;
 }
+
+.article-card {
+  margin-bottom: 15px;
+}
+
+.article-card .e-card-header-title, .article-card .e-card-content{
+  cursor: pointer;
+}
 .article-title {
   height: 100%;
   padding: 10px;
@@ -21,6 +29,50 @@
   border-bottom-color: transparent;
 }
 
-.e-dashboardlayout.e-control .e-panel .e-panel-container .e-panel-content {
-  overflow: auto;
+.content-list{
+  height: 100%;
+  width:100%;
+  overflow-x:hidden;
+  overflow-y: auto;
+}
+
+.content-list::-webkit-scrollbar {
+  width: 10px;
+  height: 1px;
+}
+
+.content-list::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #eeeeee;
+
+}
+
+.content-list::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: #fffdfd;
+}
+.e-card-actions .actions {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.e-card-actions .actions .action-right {
+  text-align: right;
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.e-card-actions .actions span{
+  margin-left: 8px;
+  font-weight: 500;
+  color: #666666;
+}
+
+.e-card-actions .actions > span{
+  margin-right: 10px;
+  display: inline-flex;
+  align-items: center;
 }

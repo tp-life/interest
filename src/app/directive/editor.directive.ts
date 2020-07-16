@@ -35,4 +35,8 @@ export class EditorDirective implements AfterViewInit {
   clearContent():void {
     this.editor.clear()
   }
+
+  setContent(content: string) {
+    this.editor.setValue(content)
+  }
 }

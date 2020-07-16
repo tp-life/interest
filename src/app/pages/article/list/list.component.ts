@@ -11,6 +11,7 @@ import {ArticleService} from "../../../service/article.service";
 import {debounceTime, distinctUntilChanged, switchMap} from "rxjs/operators";
 import {Subject} from "rxjs";
 import {Pagination} from "../../../interface";
+import { DeleteEventArgs, ChipModel } from '@syncfusion/ej2-angular-buttons'
 
 @Component({
   selector: 'app-list',
@@ -45,7 +46,8 @@ export class ListComponent implements OnInit {
   public title: string
   public content: string
   private created$ = new Subject<ArticleCreate>();
-  private article: Pagination<ArticleItem>
+  public article: Pagination<ArticleItem>  // 文章列表
+  public articleID: string
 
   constructor(private router: Router, private auth: AuthService, private http: HttpClient, private toast: NbToastrService, private articleService: ArticleService) {
   }
@@ -53,27 +55,21 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.articleList()
     this.created$.pipe(
-      debounceTime(400),
+      debounceTime(200),
       distinctUntilChanged(),
-      switchMap((data: ArticleCreate) => this.articleService.post(data))
+      switchMap((data: ArticleCreate) => this.articleID ? this.articleService.update(data, this.articleID) : this.articleService.post(data))
     ).subscribe((x: string) => {
       if (x) {
-        this.toast.success("添加文章成功", "Notice")
-        this.article = {
-          count: this.article.count + 1,
-          data: [
-            ...this.article.data,
-            {
-              id: x,
-              title: this.title,
-              content: this.content,
-              status: 1,
-              projects: []
-            }
-          ]
-        }
+        this.toast.success("保存文章成功", "Notice")
+        const article = this.article
+        this.article = this.articleID ?
+          {...article, data: article.data.map((item) => (this.articleID == item.id?{...item, title: this.title, content: this.content}:item))}
+          :
+          {
+            count: this.article.count + 1,
+            data: [...this.article.data, {id: x, title: this.title, content: this.content, status: 1, projects: []}]
+          }
       }
-      console.log(this.article, "#")
     })
 
   }
@@ -81,6 +77,8 @@ export class ListComponent implements OnInit {
   clearEditor() {
     this.editorMdDirective.clearContent()
     this.title = ''
+    this.content = ''
+    this.articleID = ''
   }
 
   save() {
@@ -100,7 +98,29 @@ export class ListComponent implements OnInit {
     target.parentElement.classList.add('e-input-focus');
   }
 
+  // 文章列表
   articleList() {
     this.articleService.get().subscribe((x: Pagination<ArticleItem>) => this.article = x)
   }
+
+  // 加载详情
+  loadArticle(id: string) {
+    const filter = this.article.data.filter(x => x.id == id)
+    if (!filter.length) {
+      return
+    }
+    this.title = filter[0].title
+    this.content = filter[0].content
+    this.editorMdDirective.setContent(this.content)
+    this.articleID = id
+  }
+
+  // 删除专题
+  delProject(e: DeleteEventArgs){
+    if (e.data instanceof Object && e.data.value) {
+      //TODO::删除专题
+    }
+  }
+
+
 }
