@@ -12,7 +12,7 @@ import {FormsModule} from '@angular/forms';
 import {RegTextPipe} from "../../pipe/reg-text.pipe";
 import {NbIconModule, NbTooltipModule} from "@nebular/theme";
 import { DropDownListModule } from "@syncfusion/ej2-angular-dropdowns";
-import { MenuModule } from "@syncfusion/ej2-angular-navigations";
+import { TooltipModule } from '@syncfusion/ej2-angular-popups';
 
 @NgModule({
   declarations: [ListComponent, DetailComponent, EditorDirective, RegTextPipe],
@@ -23,12 +23,12 @@ import { MenuModule } from "@syncfusion/ej2-angular-navigations";
     ListViewModule,
     ButtonAllModule,
     ChipListModule,
+    TooltipModule,
     TextBoxModule,
     FormsModule,
     NbIconModule,
     NbTooltipModule,
     DropDownListModule,
-    MenuModule
   ]
 })
 export class ArticleModule {

@@ -15,15 +15,24 @@
                   <div class="projects" *ngIf="item.projects.length > 0">
                     <ejs-chiplist enableDelete="true" (delete)="delProject($event)">
                       <e-chips>
-                        <e-chip [text]="project" *ngFor="let project of item.projects" [value]="project" ]></e-chip>
+                        <e-chip [text]="project" *ngFor="let project of item.projects" [value]="project"></e-chip>
                       </e-chips>
                     </ejs-chiplist>
                   </div>
                   <div class="actions">
                     <div >
-                      <span class="act" nbTooltip="设置" nbTooltipStatus="basic" nbTooltipPlacement="bottom">
+                      <ejs-tooltip animation='FlipYRightIn' position='BottomCenter'>
+                        <ng-template #content>
+                          <div class='action-btn e-btn-group e-vertical'>
+                            <button ejs-button iconCss='e-icons e-left-icon'>加入专题</button>
+                            <button ejs-button iconCss='e-icons e-middle-icon' *ngIf="!!item.status">取消发布</button>
+                            <button ejs-button iconCss='e-icons e-right-icon' *ngIf="!item.status">发布文章</button>
+                          </div>
+
+                        </ng-template>
                         <nb-icon icon="settings" status="basic"></nb-icon>
-                      </span>
+                        
+                      </ejs-tooltip>
                     </div>
                     <div class="action-right">
                       <span class="act" nbTooltip="喜欢" nbTooltipStatus="primary" nbTooltipPlacement="bottom">

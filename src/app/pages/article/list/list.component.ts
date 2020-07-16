@@ -1,16 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Router} from "@angular/router";
-import {EditorConfig} from "../../../config/editorConfig";
-import {NbAuthService} from '@nebular/auth'
-import {AuthService} from "../../../service/auth.service";
-import {HttpClient} from "@angular/common/http";
-import {EditorDirective} from "../../../directive/editor.directive";
-import {NbToastrService} from "@nebular/theme";
-import {ArticleCreate, ArticleItem} from "../../../interface/article";
-import {ArticleService} from "../../../service/article.service";
-import {debounceTime, distinctUntilChanged, switchMap} from "rxjs/operators";
-import {Subject} from "rxjs";
-import {Pagination} from "../../../interface";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from "@angular/router";
+import { EditorConfig } from "../../../config/editorConfig";
+import { NbAuthService } from '@nebular/auth'
+import { AuthService } from "../../../service/auth.service";
+import { HttpClient } from "@angular/common/http";
+import { EditorDirective } from "../../../directive/editor.directive";
+import { NbToastrService } from "@nebular/theme";
+import { ArticleCreate, ArticleItem } from "../../../interface/article";
+import { ArticleService } from "../../../service/article.service";
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
+import { Subject } from "rxjs";
+import { Pagination } from "../../../interface";
 import { DeleteEventArgs, ChipModel } from '@syncfusion/ej2-angular-buttons'
 
 @Component({
@@ -40,7 +40,7 @@ export class ListComponent implements OnInit {
   public cellSpacing: number[] = [20, 0]
   public aspectRatio: any = 100 / 56;
 
-  @ViewChild(EditorDirective, {static: false})
+  @ViewChild(EditorDirective, { static: false })
   private editorMdDirective: EditorDirective;
 
   public title: string
@@ -59,17 +59,17 @@ export class ListComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((data: ArticleCreate) => this.articleID ? this.articleService.update(data, this.articleID) : this.articleService.post(data))
     ).subscribe((x: string) => {
-      if (x) {
-        this.toast.success("保存文章成功", "Notice")
-        const article = this.article
-        this.article = this.articleID ?
-          {...article, data: article.data.map((item) => (this.articleID == item.id?{...item, title: this.title, content: this.content}:item))}
-          :
-          {
-            count: this.article.count + 1,
-            data: [...this.article.data, {id: x, title: this.title, content: this.content, status: 1, projects: []}]
-          }
-      }
+      if (!x) return
+      this.toast.success("保存文章成功", "Notice")
+      const article = this.article
+      const data = this.article.data || []
+      this.article = this.articleID ?
+        { ...article, data: article.data.map((item) => (this.articleID == item.id ? { ...item, title: this.title, content: this.content } : item)) }
+        :
+        {
+          count: this.article.count + 1,
+          data: [...data, { id: x, title: this.title, content: this.content, status: 1, projects: [] }]
+        }
     })
 
   }
@@ -111,12 +111,12 @@ export class ListComponent implements OnInit {
     }
     this.title = filter[0].title
     this.content = filter[0].content
-    this.editorMdDirective.setContent(this.content)
+    this.content && this.editorMdDirective.setContent(this.content)
     this.articleID = id
   }
 
   // 删除专题
-  delProject(e: DeleteEventArgs){
+  delProject(e: DeleteEventArgs) {
     if (e.data instanceof Object && e.data.value) {
       //TODO::删除专题
     }

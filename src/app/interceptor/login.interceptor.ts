@@ -6,14 +6,12 @@ import {AppService} from "../service/app.service";
 import {ApiUrl} from "../config/app";
 import {environment} from "../../environments/environment";
 import {LoginInterface} from "../interface/login";
-import { NbAuthService } from "@nebular/auth";
+
 
 @Injectable()
 export class LoginInterceptor implements HttpInterceptor {
 
-  constructor(
-    private auth: NbAuthService
-  ) {
+  constructor() {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -25,7 +23,6 @@ export class LoginInterceptor implements HttpInterceptor {
       tap(
         event => {
           event instanceof HttpResponse  && AppService.nextLogin(<LoginInterface>event.body)
-          this.auth.refreshToken('email').subscribe()
         }
       )
     );

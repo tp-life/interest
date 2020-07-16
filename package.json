@@ -31,6 +31,7 @@
     "@syncfusion/ej2-angular-navigations": "^18.2.44",
     "@syncfusion/ej2-angular-notifications": "^18.2.44",
     "@syncfusion/ej2-angular-popups": "^18.2.44",
+    "@syncfusion/ej2-splitbuttons": "^18.2.44",
     "angular-in-memory-web-api": "^0.11.0",
     "eva-icons": "^1.1.2",
     "jquery": "^3.5.1",
