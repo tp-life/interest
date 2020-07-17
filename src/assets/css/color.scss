@@ -1,0 +1,27 @@
+$blue: rgb(107, 2, 245);
+$yellow: #FFCE54;
+$g-090: linear-gradient(to top, #5f72bd 0%, #9b23ea 100%);
+$g-004: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+$g-039: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+$g-038: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+
+.bg-blue{
+  background: $blue;
+}
+.bg-yellow {
+  background: $yellow;
+}
+
+.bg-004{
+  background-image: $g-004;
+}
+.bg-038{
+  background-image:$g-038;
+}
+.bg-039{
+  background-image:$g-039;
+}
+
+.bg-090{
+  background-image:$g-090;
+}

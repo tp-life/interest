@@ -39,9 +39,8 @@ export class BaseInterceptor implements HttpInterceptor {
           }
         },
         event => {
-          event instanceof HttpErrorResponse && this.toast.danger(event.error?.message, '数据请求错误' )
+          event instanceof HttpErrorResponse && this.toast.danger(event.error instanceof Object?event.error.message:event.error, '数据请求错误' )
            if (event.status == 401) {
-             this.auth.refreshToken('email').subscribe()
              this.route.navigate(['/auth'])
              this.nbService.clear()
            }

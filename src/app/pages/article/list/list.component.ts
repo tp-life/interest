@@ -1,17 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from "@angular/router";
-import { EditorConfig } from "../../../config/editorConfig";
-import { NbAuthService } from '@nebular/auth'
-import { AuthService } from "../../../service/auth.service";
-import { HttpClient } from "@angular/common/http";
-import { EditorDirective } from "../../../directive/editor.directive";
-import { NbToastrService } from "@nebular/theme";
-import { ArticleCreate, ArticleItem } from "../../../interface/article";
-import { ArticleService } from "../../../service/article.service";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { Subject } from "rxjs";
-import { Pagination } from "../../../interface";
-import { DeleteEventArgs, ChipModel } from '@syncfusion/ej2-angular-buttons'
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Router} from "@angular/router";
+import {EditorConfig} from "../../../config/editorConfig";
+import {NbAuthService} from '@nebular/auth'
+import {AuthService} from "../../../service/auth.service";
+import {HttpClient} from "@angular/common/http";
+import {EditorDirective} from "../../../directive/editor.directive";
+import {NbToastrService} from "@nebular/theme";
+import {ArticleCreate, ArticleItem} from "../../../interface/article";
+import {ArticleService} from "../../../service/article.service";
+import {debounceTime, distinctUntilChanged, switchMap} from "rxjs/operators";
+import {Subject} from "rxjs";
+import {Pagination} from "../../../interface";
+import {DeleteEventArgs} from '@syncfusion/ej2-angular-buttons'
+import {DialogComponent} from '@syncfusion/ej2-angular-popups';
 
 @Component({
   selector: 'app-list',
@@ -40,7 +41,7 @@ export class ListComponent implements OnInit {
   public cellSpacing: number[] = [20, 0]
   public aspectRatio: any = 100 / 56;
 
-  @ViewChild(EditorDirective, { static: false })
+  @ViewChild(EditorDirective, {static: false})
   private editorMdDirective: EditorDirective;
 
   public title: string
@@ -48,6 +49,11 @@ export class ListComponent implements OnInit {
   private created$ = new Subject<ArticleCreate>();
   public article: Pagination<ArticleItem>  // 文章列表
   public articleID: string
+
+  // UI组件
+  public confirmContent: string = ''
+  public visible: boolean = false
+  @ViewChild('confirmDialog') ejDialog: DialogComponent;
 
   constructor(private router: Router, private auth: AuthService, private http: HttpClient, private toast: NbToastrService, private articleService: ArticleService) {
   }
@@ -64,11 +70,18 @@ export class ListComponent implements OnInit {
       const article = this.article
       const data = this.article.data || []
       this.article = this.articleID ?
-        { ...article, data: article.data.map((item) => (this.articleID == item.id ? { ...item, title: this.title, content: this.content } : item)) }
+        {
+          ...article,
+          data: article.data.map((item) => (this.articleID == item.id ? {
+            ...item,
+            title: this.title,
+            content: this.content
+          } : item))
+        }
         :
         {
           count: this.article.count + 1,
-          data: [...data, { id: x, title: this.title, content: this.content, status: 1, projects: [] }]
+          data: [...data, {id: x, title: this.title, content: this.content, status: 1, projects: []}]
         }
     })
 
@@ -117,10 +130,42 @@ export class ListComponent implements OnInit {
 
   // 删除专题
   delProject(e: DeleteEventArgs) {
-    if (e.data instanceof Object && e.data.value) {
-      //TODO::删除专题
+    if (!(e.data instanceof Object) || !e.data.value) {
+      return
     }
+    //TODO::删除专题
   }
 
+  changeStatus(id: string, status: boolean) {
+    this.ejDialog.content = "确认要更改状态吗？"
+    this.ejDialog.show()
+    this.ejDialog.buttons = [{
+      click: () => this.articleService.updateStatus(id, status).subscribe(x => {
+        this.ejDialog.hide()
+        if (!x) return
+        this.toast.success("状态变更成功", "修改状态提醒")
+        this.article = {
+          ...this.article,
+          data: this.article.data.map(item => <ArticleItem>(item.id == id ? {...item, status: status} : item))
+        }
 
+      }), buttonModel: {content: '确定', isPrimary: true}
+    }, {click: () => this.ejDialog.hide(), buttonModel: {content: '取消'}}];
+  }
+
+  del(id: string) {
+    this.ejDialog.content = "确认要删除该文章吗？"
+    this.ejDialog.show()
+    this.ejDialog.buttons = [{
+      click: () => this.articleService.del(id).subscribe(x => {
+        this.ejDialog.hide()
+        if (!x) return
+        this.toast.success("文章删除成功", "删除提醒")
+        this.article = {
+          ...this.article,
+          data: this.article.data.filter(item => item.id != id)
+        }
+      }), buttonModel: {content: '确定', isPrimary: true}
+    }, {click: () => this.ejDialog.hide(), buttonModel: {content: '取消'}}];
+  }
 }

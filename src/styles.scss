@@ -14,6 +14,7 @@
 @import '~@syncfusion/ej2-angular-popups/styles/material.css';
 
 @import 'assets/css/grid.scss';
+@import 'assets/css/color.scss';
 
 @include nb-install() {
   @include nb-theme-global();
@@ -35,10 +36,19 @@
   min-height: 28px;
 }
 
-.red{
-//   background: #333333;
-}
-
 .e-plus-icon::before {
   content: '\e823';
 }
+
+.e-cancel-icon::before {
+content: '\e286'
+}
+
+.e-link-icon::before {
+content: '\e290'
+}
+
+.e-del-icon::before {
+content:'\e602'
+}
+

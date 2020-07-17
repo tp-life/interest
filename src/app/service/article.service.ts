@@ -36,4 +36,12 @@ export class ArticleService {
       })
     )
   }
+
+  updateStatus(id: string, status: boolean): Observable<Object> {
+    return  this.http.put(url.mapApi(url.articleStatus, id), { status: status?1:-1 })
+  }
+
+  del(id: string) {
+    return  this.http.delete(url.mapApi(url.articleDel, id))
+  }
 }
